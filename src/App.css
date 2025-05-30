@@ -5,6 +5,18 @@
   text-align: center;
 }
 
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  background-color: #f9f9f9;
+}
+
+button {
+  text-transform: none !important;
+}
+
+
+
 .logo {
   height: 6em;
   padding: 1.5em;

@@ -1,47 +1,54 @@
-import { Avatar, Button, Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@mui/material'
-import React from 'react'
+import {
+    Avatar,
+    Button,
+    Divider,
+    List,
+    ListItem,
+    ListItemAvatar,
+    ListItemText,
+    Typography,
+    Box
+} from '@mui/material';
+import React from 'react';
 
 const Friend = ({ frnd, frndIdx, isSelected, setIsSelected }) => {
-
-    const closeHandler = () => {
-        console.log("close")
-        setIsSelected(undefined);
-    }
-    const selectHandler = () => {
-        console.log("select")
-        setIsSelected(frndIdx);
-
-    }
-
+    const closeHandler = () => setIsSelected(undefined);
+    const selectHandler = () => setIsSelected(frndIdx);
 
     return (
-        <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-            <ListItem alignItems="flex-start">
+        <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
+            <ListItem
+                alignItems="flex-start"
+            // secondaryAction={
+
+            // }
+            >
                 <ListItemAvatar>
-                    <Avatar alt="Remy Sharp" src={frnd?.imgUrl} />
+                    <Avatar alt={frnd.name} src={frnd.imgUrl} />
                 </ListItemAvatar>
                 <ListItemText
-                    primary={frnd?.name}
+                    primary={frnd.name}
                     secondary={
-                        <React.Fragment>
-                            <Typography
-                                component="span"
-                                variant="body2"
-                                sx={{ color: 'text.primary', display: 'inline' }}
-                            >
-                            </Typography>
-                            {"I'll be in your neighborhood doing errands this…"}
-                            <br />
-                            {`Balance : ${frnd.balance}`}
-                        </React.Fragment>
+                        <Typography
+                            component="span"
+                            variant="body2"
+                            color="text.secondary"
+                        >
+                            Balance: {frnd.balance}
+                        </Typography>
                     }
                 />
-                <Button variant="contained" onClick={frndIdx == isSelected ? closeHandler : selectHandler} >{frndIdx == isSelected ? 'Close' : 'Select'}</Button>
-
+                <Button
+                    size="small"
+                    variant="contained"
+                    onClick={frndIdx === isSelected ? closeHandler : selectHandler}
+                >
+                    {frndIdx === isSelected ? 'Close' : 'Select'}
+                </Button>
             </ListItem>
             <Divider variant="inset" component="li" />
         </List>
-    )
-}
+    );
+};
 
-export default Friend
+export default Friend;

@@ -1,48 +1,43 @@
-import { Button, TextField } from '@mui/material'
-import React, { useRef, useState } from 'react'
+import { Button, TextField, Box } from '@mui/material';
+import React, { useRef, useState } from 'react';
 
 const AddFriendForm = ({ friendList, setFriendList }) => {
+  const tbName = useRef(null);
+  const tbimgURL = useRef(null);
+  const [isOpenForm, setIsOpenForm] = useState(false);
 
-    const tbName = useRef(null);
-    const tbimgURL = useRef(null);
+  const addFriend = () => {
+    const newFriend = {
+      name: tbName.current.querySelector('input').value,
+      imgUrl: tbimgURL.current.querySelector('input').value,
+      balance: 0,
+    };
+    const newFriendList = [...friendList, newFriend];
+    setFriendList(newFriendList);
 
-    const [isOpenForm, setIsOpenForm] = useState(false);
+    tbName.current.querySelector('input').value = '';
+    tbimgURL.current.querySelector('input').value = '';
+    setIsOpenForm(false);
+  };
 
-    const addFriend = () => {
-        const friendName = tbName.current.value;
-        console.log(tbName.current.querySelector('input').value)
-        const newFriendList = [...friendList];
-        const newFriend = {
-            name: tbName.current.querySelector('input').value,
-            imgUrl: tbimgURL.current.querySelector('input').value,
-            balance: 0
-        }
-        newFriendList.push(newFriend);
-        setFriendList(newFriendList);
-        tbName.current.querySelector('input').value = "";
-        tbimgURL.current.querySelector('input').value = "";
-        setIsOpenForm(false);
-    }
+  return (
+    <Box>
+      {!isOpenForm && (
+        <Button variant="contained" onClick={() => setIsOpenForm(true)}>
+          Add Friend
+        </Button>
+      )}
+      {isOpenForm && (
+        <Box mt={2} display="flex" flexDirection="column" gap={2}>
+          <TextField ref={tbName} label="Name" variant="outlined" />
+          <TextField ref={tbimgURL} label="Image URL" variant="outlined" />
+          <Button variant="contained" onClick={addFriend}>
+            Add
+          </Button>
+        </Box>
+      )}
+    </Box>
+  );
+};
 
-
-
-    return (
-        <>
-            <div>AddFriendForm</div>
-            {
-
-                !isOpenForm && <Button variant="contained" onClick={() => setIsOpenForm(!isOpenForm)}>Add Friend</Button>
-            }
-            {
-                isOpenForm && <div>
-                    Name: <TextField ref={tbName} id="outlined-basic" label="Name" variant="outlined" /> <br />
-                    Image URL : <TextField ref={tbimgURL} id="outlined-basic" label="Image URL" variant="outlined" />
-                    <Button variant="contained" onClick={addFriend}>Add</Button>
-                </div>
-            }
-
-        </>
-    )
-}
-
-export default AddFriendForm
+export default AddFriendForm;

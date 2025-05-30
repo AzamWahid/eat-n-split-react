@@ -1,43 +1,51 @@
-import { Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material'
-import React, { useState } from 'react'
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Box,
+} from '@mui/material';
+import React, { useState } from 'react';
 
 const SplitExp = ({ friendList, isSelected }) => {
+  const [billPaidBy, setBillPaidBy] = useState('');
 
-    const [billPaidBy, setBillPaidBy] = useState('')
+  const splitHandler = () => {
+    // Add your logic here
+  };
 
-    const splitHandler = () => {
+  return (
+    <Box>
+      <h3>Split a bill with {friendList[isSelected].name}</h3>
 
+      <Box display="flex" flexDirection="column" gap={2}>
+        <TextField label="Bill Value" variant="outlined" />
+        <TextField label="Your Expense" variant="outlined" />
+        <TextField label="Friend Expense" variant="outlined" />
 
-    }
-    
-    return (
-        <>
-            <div>SplitExp</div>
+        <FormControl fullWidth>
+          <InputLabel id="paid-by-label">Paid By</InputLabel>
+          <Select
+            labelId="paid-by-label"
+            value={billPaidBy}
+            onChange={(e) => setBillPaidBy(e.target.value)}
+            label="Paid By"
+          >
+            <MenuItem value="You">You</MenuItem>
+            <MenuItem value={friendList[isSelected].name}>
+              {friendList[isSelected].name}
+            </MenuItem>
+          </Select>
+        </FormControl>
 
-            <p>SPLIT A BILL WITH {friendList[isSelected].name}</p>
+        <Button variant="contained" onClick={splitHandler}>
+          Split
+        </Button>
+      </Box>
+    </Box>
+  );
+};
 
-            Bill Value : <TextField id="outlined-basic" label="Name" variant="outlined" />  <br />
-            YOUR EXPENSE : <TextField id="outlined-basic" label="Image URL" variant="outlined" />  <br />
-            Friend EXPENSE : <TextField id="outlined-basic" label="Image URL" variant="outlined" />  <br />
-            <FormControl sx={{ m: 1, minWidth: 80 }}>
-                <InputLabel id="demo-simple-select-autowidth-label">Paid By</InputLabel>
-                <Select
-                    labelId="demo-simple-select-autowidth-label"
-                    id="demo-simple-select-autowidth"
-                    // value={age}
-                    onChange={(e) => setBillPaidBy(e.target.value)}
-                    autoWidth
-                    label="Paid By"
-                >
-
-                    <MenuItem value={"You"}>You</MenuItem>
-                    <MenuItem value={friendList[isSelected].name}>{friendList[isSelected].name}</MenuItem>
-                </Select>
-            </FormControl> <br />
-            <Button variant="contained" onClick={splitHandler}>Split</Button>
-
-        </>
-    )
-}
-
-export default SplitExp
+export default SplitExp;
