@@ -28,7 +28,6 @@ function App() {
   return (
     <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
       <Grid container spacing={3}>
-        {/* LEFT Side: Friend List & Add Friend Form */}
         <Grid item xs={12} md={6}>
           <Paper elevation={3} sx={{ p: 2 }}>
             <FriendList
@@ -45,10 +44,9 @@ function App() {
           </Paper>
         </Grid>
 
-        {/* RIGHT Side: Split Expense */}
         {typeof isSelected === 'number' && isSelected >= 0 && (
           <Grid item xs={12} md={6}>
-            <Paper elevation={3} sx={{ p: 2 }}>
+            <Paper elevation={3} sx={{ p: 2, backgroundColor: 'transparent', boxShadow: 'none' }}>
               <SplitExp
                 friendList={friendList}
                 isSelected={isSelected}
