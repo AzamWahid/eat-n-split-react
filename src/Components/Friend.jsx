@@ -46,9 +46,9 @@ const Friend = ({ frnd, frndIdx, isSelected, setIsSelected }) => {
           </Typography>
           <Typography
             variant="body2"
-            color="text.secondary"
+            color= "text.secondary"
             noWrap
-            sx={{ textOverflow: 'ellipsis' }}
+            sx={{ textOverflow: 'ellipsis' , color:frnd.balance < 0 ? 'red' : 'text.secondary' }}
           >
             Balance: {frnd.balance}
           </Typography>

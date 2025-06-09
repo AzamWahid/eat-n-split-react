@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Box,
   Button,
@@ -18,7 +18,14 @@ import PersonIcon from '@mui/icons-material/Person';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const SplitExp = ({ friendList, isSelected }) => {
-  const [billPaidBy, setBillPaidBy] = useState('');
+
+  // const [billPaidBy, setBillPaidBy] = useState('');
+
+  const youExpRef = useRef(null)
+  const friendExpRef = useRef(null)
+  const totalBill = useRef(null)
+  const paidByRef = useRef(null);
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
@@ -27,6 +34,14 @@ const SplitExp = ({ friendList, isSelected }) => {
   const splitHandler = () => {
     // Your logic here
   };
+
+  const expChangeHandler = (e) => {
+      let tbValue = e.target.value;
+      let totBill = totalBill.current.querySelector('input').value;
+      friendExpRef.current.querySelector('input').value = totBill - tbValue;
+
+      console.log(paidByRef.current.value);
+  }
 
   const Row = ({ label, field }) => (
     <Box
@@ -80,6 +95,7 @@ const SplitExp = ({ friendList, isSelected }) => {
                 borderRadius: 1,
               },
             }}
+            ref={totalBill}
           />
         }
       />
@@ -102,6 +118,8 @@ const SplitExp = ({ friendList, isSelected }) => {
                 borderRadius: 1,
               },
             }}
+            ref={youExpRef}
+            onChange={expChangeHandler}
           />
         }
       />
@@ -124,6 +142,7 @@ const SplitExp = ({ friendList, isSelected }) => {
                 borderRadius: 1,
               },
             }}
+            ref={friendExpRef}
           />
         }
       />
@@ -137,8 +156,10 @@ const SplitExp = ({ friendList, isSelected }) => {
             </InputLabel>
             <Select
               labelId="paid-by-label"
-              value={billPaidBy}
-              onChange={(e) => setBillPaidBy(e.target.value)}
+              // value={billPaidBy}
+              // onChange={(e) => setBillPaidBy(e.target.value)}
+              inputRef={paidByRef}
+              defaultValue={''}
               label="Paid By"
               sx={{
                 backgroundColor: 'white',
