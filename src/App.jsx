@@ -50,6 +50,8 @@ function App() {
               <SplitExp
                 friendList={friendList}
                 isSelected={isSelected}
+                setFriendList={setFriendList}
+                setIsSelected={setIsSelected}
               />
             </Paper>
           </Grid>

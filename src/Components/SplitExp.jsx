@@ -17,7 +17,7 @@ import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import PersonIcon from '@mui/icons-material/Person';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
-const SplitExp = ({ friendList, isSelected }) => {
+const SplitExp = ({ friendList, isSelected, setFriendList, setIsSelected }) => {
 
   // const [billPaidBy, setBillPaidBy] = useState('');
 
@@ -30,17 +30,27 @@ const SplitExp = ({ friendList, isSelected }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   const friendName = friendList[isSelected]?.name || '';
+  let friendBalance = friendList[isSelected]?.balance || 0;
 
   const splitHandler = () => {
-    // Your logic here
+    if (paidByRef.current.value == 'You') {
+      friendBalance = Number(friendBalance) - Number(friendExpRef.current.value);
+    }
+    else {
+      friendBalance = Number(friendBalance) + Number(friendExpRef.current.value);
+    }
+    console.log(friendBalance)
+    const copyOffriendList =  [...friendList];
+    copyOffriendList[isSelected].balance = friendBalance;
+    setFriendList(copyOffriendList);
   };
 
   const expChangeHandler = (e) => {
-      let tbValue = e.target.value;
-      let totBill = totalBill.current.querySelector('input').value;
-      friendExpRef.current.querySelector('input').value = totBill - tbValue;
+    let tbValue = e.target.value;
+    let totBill = totalBill.current.value;
+    friendExpRef.current.value = totBill - tbValue;
 
-      console.log(paidByRef.current.value);
+    console.log(paidByRef.current.value);
   }
 
   const Row = ({ label, field }) => (
@@ -95,7 +105,7 @@ const SplitExp = ({ friendList, isSelected }) => {
                 borderRadius: 1,
               },
             }}
-            ref={totalBill}
+            inputRef={totalBill}
           />
         }
       />
@@ -118,7 +128,7 @@ const SplitExp = ({ friendList, isSelected }) => {
                 borderRadius: 1,
               },
             }}
-            ref={youExpRef}
+            inputRef={youExpRef}
             onChange={expChangeHandler}
           />
         }
@@ -142,7 +152,7 @@ const SplitExp = ({ friendList, isSelected }) => {
                 borderRadius: 1,
               },
             }}
-            ref={friendExpRef}
+            inputRef={friendExpRef}
           />
         }
       />
